@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using ECommerceBackend.Persistence.Contexts;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +11,9 @@ namespace ECommerceBackend.Persistence
 {
     public static class ServiceRegistration
     {
+        public static void AddPersistenceServices (this IServiceCollection services)
+        {
+            services.AddDbContext<ECommerceDbContext>(Options => Options.UseNpgsql(Configuration.postgreSQLConnection));
+        }
     }
 }
