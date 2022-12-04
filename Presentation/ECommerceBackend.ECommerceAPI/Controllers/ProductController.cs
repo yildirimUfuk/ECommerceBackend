@@ -18,8 +18,10 @@ namespace ECommerceBackend.ECommerceAPI.Controllers
             _productReadRepository = productReadRepository;
         }
 
+
+        //if return type becomes 'void' and context adds not singleton (scoped,transient vs), 'Cannot access a disposed context instance' error occures because of 'async' method. To avoid this error method return type must be 'Task' or context must add to IoC container by singleton.
         [HttpGet]
-        public async void GetAsync()
+        public async Task GetAsync()
         {
             await _productWriteRepository.AddRangeAsync(
                 new()
@@ -29,6 +31,13 @@ namespace ECommerceBackend.ECommerceAPI.Controllers
                     new() { id = Guid.NewGuid(), Name = "product3", Price = 300, CreationDate = DateTime.UtcNow, Stock = 30 }
                 });
             await _productWriteRepository.SaveAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var product = await _productReadRepository.GetByIdAsnc(id);
+            return Ok(product);
         }
     }
 }
