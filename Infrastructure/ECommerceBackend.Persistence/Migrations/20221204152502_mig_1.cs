@@ -29,6 +29,7 @@ namespace ECommerceBackend.Persistence.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Stock = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)

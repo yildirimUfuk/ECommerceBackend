@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceBackend.Persistence.Contexts
 {
-    internal class ECommerceDbContext : DbContext
+    public class ECommerceDbContext : DbContext
     {
         public ECommerceDbContext(DbContextOptions options) : base(options)
         { }

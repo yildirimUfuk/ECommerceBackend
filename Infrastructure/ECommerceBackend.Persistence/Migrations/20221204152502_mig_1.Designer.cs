@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ECommerceBackend.Persistence.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    [Migration("20221128175233_mig_1")]
+    [Migration("20221204152502_mig_1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -74,6 +74,10 @@ namespace ECommerceBackend.Persistence.Migrations
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<long>("Price")
                         .HasColumnType("bigint");
