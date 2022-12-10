@@ -12,32 +12,33 @@ namespace ECommerceBackend.ECommerceAPI.Controllers
     {
         readonly private IProductWriteRepository _productWriteRepository;
         readonly private IProductReadRepository _productReadRepository;
+        readonly private IOrderWriteRepository _orderWriteRepository;
+        readonly private ICustomerWriteRepository _customerWriteRepository;
+        readonly private IOrderReadRepository _orderReadRepository;
 
-        public ProductController(IProductWriteRepository productWriteRepository, IProductReadRepository productReadRepository = null)
+        public ProductController(IProductWriteRepository productWriteRepository, IProductReadRepository productReadRepository = null, IOrderWriteRepository orderWriteRepository = null, ICustomerWriteRepository customerWriteRepository = null, IOrderReadRepository orderReadRepository = null)
         {
             _productWriteRepository = productWriteRepository;
             _productReadRepository = productReadRepository;
+            _orderWriteRepository = orderWriteRepository;
+            _customerWriteRepository = customerWriteRepository;
+            _orderReadRepository = orderReadRepository;
         }
 
 
-        //if return type becomes 'void' and context adds not singleton (scoped,transient vs), 'Cannot access a disposed context instance' error occures because of 'async' method. To avoid this error method return type must be 'Task' or context must add to IoC container by singleton.
         [HttpGet]
         public async Task GetAsync()
         {
-            //await _productWriteRepository.AddRangeAsync(
-            //    new()
-            //    {
-            //        new() { id = Guid.NewGuid(), Name = "product1", Price = 100, CreationDate = DateTime.UtcNow, Stock = 10 },
-            //        new() { id = Guid.NewGuid(), Name = "product2", Price = 200, CreationDate = DateTime.UtcNow, Stock = 20 },
-            //        new() { id = Guid.NewGuid(), Name = "product3", Price = 300, CreationDate = DateTime.UtcNow, Stock = 30 }
-            //    });
-            //await _productWriteRepository.SaveAsync();
+            //var newCustomerId = Guid.NewGuid();
+            //await _customerWriteRepository.AddAsync(new() { id = newCustomerId, Name = "abuzer"});
 
-            //false means is it will not track so if the 'product' update, changes are not saved when call save function of repository
-            Product product = await _productReadRepository.GetByIdAsnc("1a57813f-21d5-4845-aed1-34c296d522b9", false);
-            product.Name = "abuzer";
-            //for now, write and read repository same. Thats why in here we can use write repository to save operation.
-            await _productWriteRepository.SaveAsync();
+            //await  _orderWriteRepository.AddAsync(new() { Description = "order1", Address = "address1",CustomerId=newCustomerId});
+            //await  _orderWriteRepository.AddAsync(new() { Description = "order2", Address = "address2" ,CustomerId=newCustomerId});
+            //await _orderWriteRepository.SaveAsync();
+
+            var data = await _orderReadRepository.GetByIdAsnc("58312741-13b4-4e19-8889-4d5f42b2d4a5");
+            data.Address = "new addres";
+            await _orderWriteRepository.SaveAsync();
         }
 
         [HttpGet("{id}")]

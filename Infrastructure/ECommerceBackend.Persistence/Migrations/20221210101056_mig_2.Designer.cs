@@ -3,6 +3,7 @@ using System;
 using ECommerceBackend.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ECommerceBackend.Persistence.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    partial class ECommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221210101056_mig_2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +59,7 @@ namespace ECommerceBackend.Persistence.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid>("Customerid")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -68,7 +71,7 @@ namespace ECommerceBackend.Persistence.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Customerid");
 
                     b.ToTable("Orders");
                 });
@@ -119,7 +122,7 @@ namespace ECommerceBackend.Persistence.Migrations
                 {
                     b.HasOne("ECommerceBackend.Domain.Entities.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Customerid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
