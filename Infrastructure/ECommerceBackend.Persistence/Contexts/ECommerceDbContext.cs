@@ -26,8 +26,12 @@ namespace ECommerceBackend.Persistence.Contexts
             {
                 var _ = data.State switch
                 {
+                    //if state is 'added'
                     EntityState.Added => data.Entity.CreationDate = DateTime.UtcNow,
-                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow
+                    //if state is 'modified'
+                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
+                    //if state is none of these (this structure enters the last statement if all statement before the last one are false.)
+                    _=>DateTime.UtcNow
                 };
             }
 
