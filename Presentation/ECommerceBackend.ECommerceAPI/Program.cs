@@ -1,9 +1,19 @@
+using ECommerceBackend.Application.Validators.Products;
+using ECommerceBackend.Infrastructure.Filters;
 using ECommerceBackend.Persistence;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+#pragma warning disable CS0618 // Type or member is obsolete
+//custom 'validationFilter' filter is adding to controller
+builder.Services.AddControllers(options=>options.Filters.Add<ValidationFilter>())
+    //adding fluent validation service
+    .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>())
+    // to disable default filter. My filters will be active now.
+    .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+#pragma warning restore CS0618 // Type or member is obsolete
 builder.Services.AddPersistenceServices();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
