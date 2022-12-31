@@ -12,7 +12,8 @@
     "ECommerceBackend.ECommerceAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      //"launchBrowser": true,
+      "launchBrowser": false, // swagger is disabled when opening app
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7018;http://localhost:5018",
       "environmentVariables": {
@@ -21,7 +22,8 @@
     },
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
+      //"launchBrowser": true,
+      "launchBrowser": false, // swagger is disabled when opening app IIS
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
